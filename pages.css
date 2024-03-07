@@ -1,0 +1,61 @@
+.btn-light,
+.btn-light:hover,
+.btn-light:focus {
+  color: #333;
+  text-shadow: none;
+}
+
+.cover-container {
+  max-width: 42em;
+}
+
+.main {
+  max-height: 80%;
+  padding: 0px;
+}
+
+.center-form {
+  margin: auto;
+  max-width: 100%;
+}
+
+.div_main {
+  max-height: 100%;
+  padding-inline: 30%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: darkgray;
+}
+
+.div_main::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+
+}
+
+.div_main::-webkit-scrollbar-track {
+  background: transparent;
+  padding: 2px;
+  border-radius: 10px;
+}
+
+.div_main::-webkit-scrollbar-corner {
+  border-radius: 10px;
+}
+
+.div_main::-webkit-scrollbar-thumb {
+  background-color: darkgray;
+  border-radius: 10px;
+}
+
+input[type=number]::-webkit-inner-spin-button { 
+  -webkit-appearance: none;
+  
+}
+input[type=number] { 
+ -moz-appearance: textfield;
+ appearance: textfield;
+ padding-inline-start: 6px;
+ padding-inline-end: 0;
+}
