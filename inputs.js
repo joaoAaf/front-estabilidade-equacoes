@@ -12,21 +12,19 @@ const createInput = (divId, labelId, i) => {
     div.appendChild(inputDiv)
 }
 
-function inputIndexes (element, divId, labelId) {
-    if (element.value != "") {
-        for (let i = 0; document.getElementById(divId+i) != null; i++) {
-            document.getElementById(divId).removeChild(document.getElementById(divId+i))
-        }
-        let grau = parseInt(element.value)
-        for (let i = 0; i <= grau; i++) {
-            createInput(divId, labelId, i)
-        }
-    } else {
-        document.getElementById(labelId).hidden = true
-        for (let i = 0; document.getElementById(divId+i) != null; i++) {
-            document.getElementById(divId).removeChild(document.getElementById(divId+i))
-        }
-    }
+const removeAllInpus = (elementId, labelId) => {
+    const element = document.getElementById(elementId)
+    element && [...element.children].forEach(child => child.remove())
+    document.getElementById(labelId).hidden = true
 }
 
-/* const count = new Array(parseInt(element.value)) */
+const inputIndexes = (element, elementId, labelId) => {
+    const exec = isNaN(element.value) || element.value == "" ?
+        () => removeAllInpus(elementId, labelId) :
+        () => {
+            removeAllInpus(elementId, labelId)
+            const count = new Array(parseInt(element.value) + 1).fill(0)
+            count.forEach((_, i) => createInput(elementId, labelId, i))
+        }
+    exec()
+}
