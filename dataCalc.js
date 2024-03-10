@@ -1,3 +1,4 @@
+const url = "http://localhost:8080/calc"
 const dataCalc = document.getElementById("data-calc")
 
 dataCalc.addEventListener("submit", event => {
@@ -6,7 +7,23 @@ dataCalc.addEventListener("submit", event => {
     const bruteDada = captureInputs("indexes")
     const isValid = validate(bruteDada, onlyNumbers)
 
-    const indexes = isValid && bruteDada.map(value => parseFloat(value))
+    const postCalc = isValid && async function () {
+        const indexes = {
+            indexes: bruteDada.map(value => parseFloat(value))
+        }
 
-    console.log(indexes)
+        return await axios.post(url, indexes)
+    }
+
+    postCalc()
+        .then(response => {
+            console.log(response)
+            return response.data
+        })
+        .then(response => {
+            console.log(response)
+            sessionStorage.setItem('result', JSON.stringify(response))
+            window.location.href = ""
+        })
+        .catch(error => console.log(error))
 })
