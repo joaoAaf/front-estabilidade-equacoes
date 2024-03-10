@@ -1,4 +1,3 @@
-// todas as funções utilizadas são funções lambda
 const createInput = elementId => {
     let div = document.getElementById(elementId)
     let inputDiv = document.createElement("div")
@@ -6,25 +5,33 @@ const createInput = elementId => {
     inputDiv.className = "col-md-2"
     input.type = "number"
     input.className = "form-control"
+    input.required = true
+    input.step = ".0001"
     inputDiv.appendChild(input)
     div.appendChild(inputDiv)
 }
 
 const countArray = (value, indexAdd = 0) => new Array(parseInt(value) + indexAdd).fill(0)
 
+// implementa função lambda atribuindo o resultado de uma função anômima a constante "hidden"
 const hidden = (elementId, bool) => document.getElementById(elementId).hidden = bool
 
-const removeAllChildren = elementId => {
+const returnAllChildren = elementId => {
     const element = document.getElementById(elementId)
-    element && [...element.children].forEach(child => child.remove())
+    return element && [...element.children]
 }
-// função de alta ordem, pois retorna uma função como resultado
+
+// implementa list comprehension por meio da função map, criando uma lista dos valores capturados
+const captureInputs = elementId => returnAllChildren(elementId).map(child => child.children[0].value)
+
+const removeAllChildren = elementId => returnAllChildren(elementId).forEach(child => child.remove())
+
 // implementa closure retornando uma função interna que se utiliza de
 // variaveis do escopo da função externa
 const inputs = (elementId, labelId) => {
     return element => {
         removeAllChildren(elementId)
-        const exec = isNaN(element.value) || element.value == "" ?
+        const exec = notNumber(element.value) ?
             () => hidden(labelId, true) :
             () => {
                 hidden(labelId, false)
@@ -34,4 +41,6 @@ const inputs = (elementId, labelId) => {
     }
 }
 
+// Utilização da função "inputIndexes" para encapsular
+// o escopo da função "inputs"
 const inputIndexes = inputs('indexes', 'label-indexes')
