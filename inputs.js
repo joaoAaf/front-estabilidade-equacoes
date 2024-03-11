@@ -1,3 +1,4 @@
+// todas as funções utilizadas no código são funções lambda
 const createInput = elementId => {
     let div = document.getElementById(elementId)
     let inputDiv = document.createElement("div")
@@ -13,7 +14,6 @@ const createInput = elementId => {
 
 const countArray = (value, indexAdd = 0) => new Array(parseInt(value) + indexAdd).fill(0)
 
-// implementa função lambda atribuindo o resultado de uma função anômima a constante "hidden"
 const hidden = (elementId, bool) => document.getElementById(elementId).hidden = bool
 
 const returnAllChildren = elementId => {
