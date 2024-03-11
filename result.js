@@ -36,9 +36,9 @@ const getResult = (result, elementId) => {
     const tboby = document.getElementById(elementId)
     result.calcs.forEach(calc => {
         const line = createLine()
-        createCol(line, calc.k)
-        createCol(line, calc.matriz1, calc.matriz2)
-        createCol(line, calc.jmodule)
+        createCol(line, `k = ${calc.k}`)
+        createCol(line, calc.matriz1.map(c => c.toFixed(4)).join(' '), calc.matriz2 && calc.matriz2.map(c => c.toFixed(4)).join(' '))
+        createCol(line, parseFloat(calc.jmodule).toFixed(4))
         tboby.appendChild(line)
     })
     tboby.appendChild(createLine(msgResult(result.estable)))
