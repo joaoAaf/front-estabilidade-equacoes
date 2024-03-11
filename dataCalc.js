@@ -15,6 +15,7 @@ dataCalc.addEventListener("submit", event => {
         return await axios.post(url, indexes)
     }
 
+    // implementação de monad utilizado-se de promise
     postCalc()
         .then(response => {
             console.log(response)
@@ -23,7 +24,7 @@ dataCalc.addEventListener("submit", event => {
         .then(response => {
             console.log(response)
             sessionStorage.setItem('result', JSON.stringify(response))
-            window.location.href = ""
+            window.location.href = "/result.html"
         })
         .catch(error => console.log(error))
 })
