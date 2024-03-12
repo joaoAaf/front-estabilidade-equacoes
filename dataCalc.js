@@ -1,4 +1,4 @@
-const url = "http://localhost:8080/calc"
+const url = "https://estabilidade-equacoes.onrender.com/calc"
 const dataCalc = document.getElementById("data-calc")
 
 // criação de uma função monad Identity
