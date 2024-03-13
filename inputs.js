@@ -18,7 +18,7 @@ const hidden = (elementId, bool) => document.getElementById(elementId).hidden = 
 
 const returnAllChildren = elementId => {
     const element = document.getElementById(elementId)
-    return element && [...element.children]
+    return element != null ? [...element.children] : []
 }
 
 // implementa list comprehension por meio da função map, criando uma lista dos valores capturados
@@ -44,3 +44,5 @@ const inputs = (elementId, labelId) => {
 // Utilização da função "inputIndexes" para encapsular
 // o escopo da função "inputs"
 const inputIndexes = inputs('indexes', 'label-indexes')
+
+module.exports = { createInput, countArray, hidden, returnAllChildren, captureInputs, removeAllChildren }
