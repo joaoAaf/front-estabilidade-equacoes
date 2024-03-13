@@ -1,4 +1,4 @@
-const notNumber = value => isNaN(value) || value == ""
+const notNumber = value => isNaN(value) || Array.isArray(value) || value === null || value === undefined || value === ''
 
 const onlyNumbers = data => data.filter(value => notNumber(value)).length == 0
 
@@ -6,3 +6,5 @@ const onlyNumbers = data => data.filter(value => notNumber(value)).length == 0
 // seu comportamento seguinte
 // função de alta ordem, pois recebe e retorna uma função como resultado
 const validate = (data, fn) => fn(data)
+
+module.exports = { notNumber, onlyNumbers, validate }
