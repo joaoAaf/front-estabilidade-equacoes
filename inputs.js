@@ -1,4 +1,7 @@
 // todas as funções utilizadas no código são funções lambda
+
+const notNumber = require('./validaters.js');
+
 const createInput = elementId => {
     let div = document.getElementById(elementId)
     let inputDiv = document.createElement("div")
@@ -17,12 +20,31 @@ const countArray = (value, indexAdd = 0) => new Array(parseInt(value) + indexAdd
 const hidden = (elementId, bool) => document.getElementById(elementId).hidden = bool
 
 const returnAllChildren = elementId => {
-    const element = document.getElementById(elementId)
-    return element && [...element.children]
-}
+    const parentElement = document.getElementById(elementId);
+    if (!parentElement) return [];
+
+    return Array.from(parentElement.querySelectorAll('*'));
+};
+
 
 // implementa list comprehension por meio da função map, criando uma lista dos valores capturados
-const captureInputs = elementId => returnAllChildren(elementId).map(child => child.children[0].value)
+const captureInputs = elementId => {
+    const children = returnAllChildren(elementId);
+    if (!children) return [];
+
+    return children.map(child => {
+        if (child.tagName === 'INPUT') {
+            return child.value;
+        }
+        return null;
+    }).filter(value => value !== null); // Filtra os valores nulos
+};
+
+
+
+
+
+
 
 const removeAllChildren = elementId => returnAllChildren(elementId).forEach(child => child.remove())
 
@@ -44,3 +66,13 @@ const inputs = (elementId, labelId) => {
 // Utilização da função "inputIndexes" para encapsular
 // o escopo da função "inputs"
 const inputIndexes = inputs('indexes', 'label-indexes')
+
+module.exports = {
+    createInput,
+    countArray,
+    hidden,
+    returnAllChildren,
+    captureInputs,
+    removeAllChildren,
+    inputs
+};
