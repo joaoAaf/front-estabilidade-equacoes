@@ -1,4 +1,13 @@
 // todas as funções utilizadas no código são funções lambda
+const notNumber = value => isNaN(value) || Array.isArray(value) || value === null || value === undefined || value === ''
+
+const onlyNumbers = data => data.filter(value => notNumber(value)).length == 0
+
+// implementa Função de continuação, pois permite encapsular
+// seu comportamento seguinte
+// função de alta ordem, pois recebe e retorna uma função como resultado
+const validate = (data, fn) => fn(data)
+
 const createInput = elementId => {
     let div = document.getElementById(elementId)
     let inputDiv = document.createElement("div")
@@ -45,4 +54,4 @@ const inputs = (elementId, labelId) => {
 // o escopo da função "inputs"
 const inputIndexes = inputs('indexes', 'label-indexes')
 
-module.exports = { createInput, countArray, hidden, returnAllChildren, captureInputs, removeAllChildren }
+module.exports = { createInput, countArray, hidden, returnAllChildren, captureInputs, removeAllChildren, inputs, notNumber, onlyNumbers, validate }

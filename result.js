@@ -43,6 +43,3 @@ const getResult = (result, elementId) => {
     })
     tboby.appendChild(createLine(msgResult(result.estable)))
 }
-
-
-
