@@ -43,3 +43,5 @@ const getResult = (result, elementId) => {
     })
     tboby.appendChild(createLine(msgResult(result.estable)))
 }
+
+module.exports = { createLine, createCol, msgResult, getResult }
