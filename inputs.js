@@ -54,4 +54,15 @@ const inputs = (elementId, labelId) => {
 // o escopo da função "inputs"
 const inputIndexes = inputs('indexes', 'label-indexes')
 
-module.exports = { createInput, countArray, hidden, returnAllChildren, captureInputs, removeAllChildren, inputs, notNumber, onlyNumbers, validate }
+module.exports = {
+    createInput,
+    countArray,
+    hidden,
+    returnAllChildren,
+    captureInputs,
+    removeAllChildren,
+    inputs,
+    notNumber,
+    onlyNumbers,
+    validate
+}
