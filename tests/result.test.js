@@ -1,13 +1,4 @@
 const { createLine, createCol, msgResult, getResult } = require('../result')
-const { JSDOM } = require('jsdom')
-const { window } = new JSDOM('<!DOCTYPE html><html><body></body></html>')
-
-// Definindo os objetos globais para serem usados nos testes
-global.document = window.document
-global.window = window
-global.navigator = {
-  userAgent: 'node.js',
-}
 
 // Testes para a função createLine
 test('createLine deve retornar um elemento tr com a classe correta', () => {
@@ -52,4 +43,43 @@ test('createCol deve criar um segundo parágrafo com o texto fornecido se um seg
 test('msgResult deve retornar uma mensagem de acordo com o argumento fornecido', () => {
   expect(msgResult(true)).toBe('A Equação é Estavel')
   expect(msgResult(false)).toBe('A Equação é Instavel')
+})
+
+describe('getResult', () => {
+  beforeEach(() => {
+    // Configurando o elemento 'table-body' no HTML
+    document.body.innerHTML = `<table><tbody id="table-body"></tbody></table>`
+    const result = {
+      calcs: [
+        { k: 0, matriz1: [7, 6, 2], matriz2: [2, 6, 7], jmodule: 0.21 },
+        { k: 1, matriz1: [7.5, 6.4], jmodule: 0.51 }
+      ],
+      estable: false // Simulando que o resultado é instavel
+    }
+    sessionStorage.setItem('result', JSON.stringify(result))
+  })
+
+  test('deve criar linhas e colunas corretamente na tabela', () => {
+    // Chamando a função getResult
+    getResult('table-body')
+
+    // Verificando se as linhas e colunas foram adicionadas corretamente na tabela
+    const tbody = document.getElementById('table-body')
+    const rows = tbody.querySelectorAll('tr')
+    expect(rows.length).toBe(3) // 2 resultados + 1 linha para a mensagem
+    expect(rows[0].querySelectorAll('td').length).toBe(3) // 3 colunas para o primeiro resultado
+    expect(rows[1].querySelectorAll('td').length).toBe(3) // 3 colunas para o segundo resultado
+  })
+
+  test('deve adicionar corretamente a mensagem de resultado no final da tabela', () => {
+    // Chamando a função getResult
+    getResult('table-body')
+
+    // Verificando se a mensagem de resultado foi adicionada corretamente no final da tabela
+    const tbody = document.getElementById('table-body')
+    const rows = tbody.querySelectorAll('tr')
+    const lastRow = rows[rows.length - 1]
+    const lastRowContent = lastRow.querySelector('td strong').innerHTML
+    expect(lastRowContent).toBe('A Equação é Instavel')
+  })
 })
