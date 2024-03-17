@@ -1,5 +1,3 @@
-const result = JSON.parse(sessionStorage.getItem("result"))
-
 const createLine = (msg = null) => {
     const tr = document.createElement('tr')
     tr.className = "align-middle"
@@ -32,17 +30,18 @@ const msgResult = estable => {
     return `A Equação é ${text}`
 }
 
-const getResult = (result, elementId) => {
+const getResult = elementId => {
+    const result = JSON.parse(sessionStorage.getItem("result"))
     const tboby = document.getElementById(elementId)
     result.calcs.forEach(calc => {
         const line = createLine()
         createCol(line, `k = ${calc.k}`)
-        createCol(line, calc.matriz1.map(c => c.toFixed(4)).join(' '), calc.matriz2 && calc.matriz2.map(c => c.toFixed(4)).join(' '))
+        createCol(line, calc.matriz1.map(c => c.toFixed(4)).join(' '), 
+            calc.matriz2 && calc.matriz2.map(c => c.toFixed(4)).join(' '))
         createCol(line, parseFloat(calc.jmodule).toFixed(4))
         tboby.appendChild(line)
     })
     tboby.appendChild(createLine(msgResult(result.estable)))
 }
 
-
-
+module.exports = { createLine, createCol, msgResult, getResult }
